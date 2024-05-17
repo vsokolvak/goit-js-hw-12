@@ -32,12 +32,16 @@
   letter-spacing: 0.04em;
   color: #2e2f42;
   padding: 8px 16px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.466);
   border-radius: 4px;
 }
 
 .form-input:hover, .form-selected:hover {
-  outline: 1px solid black;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.form-input:focus, .form-selected:focus {
+  border: 1px solid rgba(0, 85, 255, 0.877);
 }
 
 .form-button {
