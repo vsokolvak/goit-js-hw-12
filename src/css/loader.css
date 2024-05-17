@@ -2,11 +2,12 @@
   display: flex;
   text-align: center;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 30px;
   font-size: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #076300;
 
 }
 
@@ -25,7 +26,7 @@
   left: 0;
   top: 0;
   border-radius: 50%;
-  border: 2px solid #000000;
+  border: 2px solid #076300;
   transform: translate(-50%,  -50%);
   animation: animloader 2s linear infinite;
 }

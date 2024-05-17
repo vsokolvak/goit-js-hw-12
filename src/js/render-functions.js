@@ -17,7 +17,7 @@ export const gallery = {
     },
 
     addItems(items) {
-        this.galleryEl.innerHTML = items;
+        this.galleryEl.insertAdjacentHTML('beforeend', items);
         gallerySimpleLightBox.refresh();
     }
 }
