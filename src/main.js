@@ -8,12 +8,10 @@ import { gallery } from "./js/render-functions";
 // page element
 const formEl = document.querySelector('.search-form');
 const btnLoadMore = document.querySelector('#load-more')
-const btnLoadMoreWraper = document.querySelector('.button-wrapper');
-const endCollectionsMessage = document.querySelector('.end-colections-message')
 
 // main variables
 let curentPage = 1
-let pageCount = 0
+let pageCount = 1
 let serchTxt = '' 
 let serchCategory = '';
 
@@ -33,9 +31,13 @@ function inputForm(form) {
 
 function submitForm(form) {
 
+  form.preventDefault();
+
     // get serch info from form
-    form.preventDefault()
-    endCollectionsMessage.classList.add('hiden');
+    // set default params if the search is repeated
+    curentPage = 1;
+    pageCount = 1;
+    // get data from input field
     serchTxt = form.currentTarget.elements.searchText.value.trim();
     serchCategory = form.currentTarget.elements.category.value
     
@@ -56,25 +58,18 @@ function submitForm(form) {
           showModalMsg(
             'Sorry, there are no images matching your search query. Please try again!'
           );
-          pageCount = 0;
-          btnLoadMoreWraper.classList.add('hiden');
-          endCollectionsMessage.classList.add('hiden');
           return;
         }
 
         pageCount = Math.ceil(res.data.totalHits / 15)
         gallery.addItems(createGaleryItems(res.data.hits));
-        if (curentPage === pageCount) endCollectionsMessage.classList.remove('hiden');
       })
       .catch(err => {
         showModalMsg('error ' + err);
         return;
       })
       .finally(() => {
-        loader.close();
-        if (curentPage < pageCount) {
-          btnLoadMoreWraper.classList.remove('hiden');
-        };
+        loader.close(curentPage, pageCount);
         form.target.reset();
       });
     
@@ -85,7 +80,6 @@ function loadMore(btn) {
     curentPage += 1
   
     // fetching data from server
-    btnLoadMoreWraper.classList.add('hiden');
     loader.show();
   getImg(serchTxt, serchCategory, curentPage)
     .then(res => {
@@ -108,7 +102,10 @@ function loadMore(btn) {
       return;
     })
     .finally(() => {
-      loader.close();
-      if ( curentPage < pageCount ) btnLoadMoreWraper.classList.remove('hiden'); else endCollectionsMessage.classList.remove('hiden');
+      loader.close(curentPage, pageCount);
+      if ( curentPage === pageCount ) showModalMsg(
+        "We're sorry, but you've reached the end of search results.",
+        'blue'
+      );
     });
 }
