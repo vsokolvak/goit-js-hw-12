@@ -63,6 +63,11 @@ function submitForm(form) {
 
         pageCount = Math.ceil(res.data.totalHits / 15)
         gallery.addItems(createGaleryItems(res.data.hits));
+        if (curentPage === pageCount)
+          showModalMsg(
+            "We're sorry, but you've reached the end of search results.",
+            'blue'
+          );
       })
       .catch(err => {
         showModalMsg('error ' + err);
@@ -71,11 +76,6 @@ function submitForm(form) {
       .finally(() => {
         loader.close(curentPage, pageCount);
         form.target.reset();
-        if (curentPage === pageCount)
-          showModalMsg(
-            "We're sorry, but you've reached the end of search results.",
-            'blue'
-          );
       });
     
 }
