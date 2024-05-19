@@ -45,6 +45,7 @@ function submitForm(form) {
     if (serchTxt.length < 2) {
         showModalMsg('the search word must contain at least 2 letters', 'red');
         form.currentTarget.reset();
+        button.disable();
         return
     }
 
@@ -76,6 +77,7 @@ function submitForm(form) {
       .finally(() => {
         loader.close(curentPage, pageCount);
         form.target.reset();
+        button.disable();
       });
     
 }
