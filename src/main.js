@@ -71,6 +71,11 @@ function submitForm(form) {
       .finally(() => {
         loader.close(curentPage, pageCount);
         form.target.reset();
+        if (curentPage === pageCount)
+          showModalMsg(
+            "We're sorry, but you've reached the end of search results.",
+            'blue'
+          );
       });
     
 }
